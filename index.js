@@ -10,8 +10,15 @@ $(function(){
             $(".rem").on("click",function(){
                 $(this).parent().remove();
             });
+            var isMarked=false;
             $(".mark").on("click",function(){
-                $(this).parent().css("text-decoration","line-through")
+                if (isMarked==false) {
+                    $(this).parent().css({"text-decoration":"line-through", "color": "grey"});
+                    isMarked=true;
+                }else{
+                    $(this).parent().css({"text-decoration":"none", "color": ""});
+                    isMarked=false;
+                }
             })
         }
     });
