@@ -4,24 +4,27 @@ $(function(){
     let taskArray = [];
     let taskId = 0;
 
+    //Store the task array in local storage
+    localStorage.setItem("Tasks", taskArray);
 
     //Initialize a click function for the 'Add' button
     $("#add").on("click",function(){
-        //Increment the taskId
-        taskId++;
-
-        //creating the task object
-        let task = {
-            id: taskId,
-            task: $("input").val()
-        };
-
-        //adding the task object to the task array
-        taskArray.push(task);
 
         //Get the value of the input field
         var val = $("input").val();
         if (val !=='') {
+
+            //Increment the taskId
+            taskId++;
+
+            //creating the task object
+            var task = {
+            id: taskId,
+            task: $("input").val()
+            };
+
+            //adding the task object to the task array
+            taskArray.push(task);
 
             //Create a new list item
             var elem = $("<li></li>").text(val);
@@ -67,7 +70,10 @@ $(function(){
                     //change the variable to false
                     isMarked=false;
                 }
-            })
+            });
         }
+
+        //Get the stored value of the task array
+        console.log(taskArray);
     });
 });
