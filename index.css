@@ -3,7 +3,7 @@
 body{
     background: #23a5d6;
 }
-#invoice{
+#container{
     width: 95%;
     max-width: 380px;
     position: absolute;
@@ -13,7 +13,7 @@ body{
     padding-top: 0;
     background: white;
 }
-#invoice h1{
+#container h1{
     margin: 0;
     text-align: center;
     font-family: Urbanjungle;
