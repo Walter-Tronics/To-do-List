@@ -1,6 +1,25 @@
 $(function(){
+
+    //Creating a new array for storing the tasks
+    let taskArray = [];
+    let taskId = 0;
+
+
     //Initialize a click function for the 'Add' button
     $("#add").on("click",function(){
+        //Increment the taskId
+        taskId++;
+
+        //creating the task object
+        let task = {
+            id: taskId,
+            task: $("#task").val(),
+            priority: $("#priority").val(),
+            status: $("#status").val()
+        };
+
+        //adding the task object to the task array
+        taskArray.push(task);
 
         //Get the value of the input field
         var val = $("input").val();
