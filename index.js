@@ -13,9 +13,7 @@ $(function(){
         //creating the task object
         let task = {
             id: taskId,
-            task: $("#task").val(),
-            priority: $("#priority").val(),
-            status: $("#status").val()
+            task: $("input").val()
         };
 
         //adding the task object to the task array
