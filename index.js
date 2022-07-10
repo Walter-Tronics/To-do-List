@@ -31,7 +31,7 @@ $(function(){
             var elem = $("<li></li>").text(val);
 
             //Append a delete button to the list item
-            $(elem).append("<button class=' rem btn btn-sm btn-danger' style='float: right;'>&times;</button>");
+            $(elem).append("<button class='rem btn btn-sm btn-danger' style='float: right;'>&times;</button>");
 
             //Append a click button to the list item
             $(elem).append("<button class='mark btn btn-sm btn-success' style='float: right;'>&check;</button>");
@@ -44,12 +44,12 @@ $(function(){
             //Clear the input field
             $("input").val("");
 
-            //Add a click function to the new list item
-            $(".rem").on("click",function(){
-                //Remove the list item
-                $(this).parent().remove();
-                saveTasks();
-            });
+            //Add a delete function to the new list item
+                $(".rem").on("click",function(){
+                    //Remove the list item
+                    $(this).parent().remove();
+                    saveTasks();
+                });
             
             //create a variable to store the click function
             var isMarked=false;
@@ -83,7 +83,7 @@ $(function(){
 
         //Get the stored value of the task array
         console.log(taskArray);
-        console.log(localStorage.getItem("TaskCont"));
+        console.log(JSON.parse(localStorage.getItem("TaskCont")));
     });
 
     //Creating a funtion for retrieving the tasks from local storage
@@ -123,4 +123,6 @@ $(function(){
         //}
     }
     */
+
+    getTasks();
 });
