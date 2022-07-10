@@ -3,6 +3,7 @@ $(function(){
     //Creating a new array for storing the tasks
     let taskArray = [];
     let taskId = 0;
+    var i = -1;
 
     //Store the task array in local storage
     localStorage.setItem("Tasks", taskArray);
@@ -26,7 +27,6 @@ $(function(){
             //adding the task object to the task array
             taskArray.push(task);
 
-            /*
             //Create a new list item
             var elem = $("<li></li>").text(val);
 
@@ -38,9 +38,8 @@ $(function(){
 
             //Append the new list item to the list
             $("#mylist").append(elem);
-            */
 
-            getTasks();
+            //getTasks();
 
             //Clear the input field
             $("input").val("");
@@ -49,6 +48,7 @@ $(function(){
             $(".rem").on("click",function(){
                 //Remove the list item
                 $(this).parent().remove();
+                saveTasks();
             });
             
             //create a variable to store the click function
@@ -74,20 +74,41 @@ $(function(){
                     //change the variable to false
                     isMarked=false;
                 }
+
+                saveTasks();
             });
+
+            saveTasks();
         }
 
         //Get the stored value of the task array
         console.log(taskArray);
+        console.log(localStorage.getItem("TaskCont"));
     });
 
     //Creating a funtion for retrieving the tasks from local storage
+
+
+    function saveTasks(){
+        localStorage.setItem("TaskCont", JSON.stringify($('#mylist').html()));
+    }
+
+    function getTasks(){
+        var storedTasks = JSON.parse(localStorage.getItem("TaskCont"));
+        $('#mylist').html(storedTasks);
+    }
+
+
+
+
+    /*
     function getTasks(){
         //Get the stored value of the task array
         //taskArray = localStorage.getItem("Tasks");
 
         //Loop through the task array
-        for (var i = 0; i < taskArray.length; i++) {
+        //for (var i = 0; i < taskArray.length; i++) {
+            i++;
             //Create a new list item
             var elem = $("<li></li>").text(taskArray[i].task);
 
@@ -99,8 +120,7 @@ $(function(){
 
             //Append the new list item to the list
             $("#mylist").append(elem);
-        }
+        //}
     }
-
-    getTasks();
+    */
 });
