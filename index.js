@@ -1,31 +1,11 @@
 $(function(){
 
-    //Creating a new array for storing the tasks
-    let taskArray = [];
-    let taskId = 0;
-    
-    //Store the task array in local storage
-    localStorage.setItem("Tasks", taskArray);
-
     //Initialize a click function for the 'Add' button
     $("#add").on("click",function(){
 
         //Get the value of the input field
         var val = $("input").val();
         if (val !=='') {
-
-            //Increment the taskId
-            taskId++;
-
-            //creating the task object
-            var task = {
-            id: taskId,
-            task: $("input").val()
-            };
-
-            //adding the task object to the task array
-            taskArray.push(task);
-
 
             //Create a new list item
             var elem = $("<li></li>").text(val);
@@ -40,7 +20,6 @@ $(function(){
             $("#mylist").append(elem);
 
 
-
             //Clear the input field
             $("input").val("");
 
@@ -51,16 +30,17 @@ $(function(){
 
 
         //Get the stored value of the task array
-        console.log(taskArray);
+        console.log("Created a new task");
         //console.log(JSON.parse(localStorage.getItem("TaskCont")));
 
+        //Call the function to store the new task
         saveTasks();
     });
 
 
     
 
-
+    //Saving the tasks to local storage
     function saveTasks(){
         localStorage.setItem("TaskCont", JSON.stringify($('#mylist').html()));
     }
@@ -90,19 +70,19 @@ $(function(){
         });
 
         //create a variable to store the click function
-        var isMarked1 = false;
+        var isMarked = false;
 
         //Add a click function to the new list item
         $(".mark").on("click",function(){
 
             //if the list item is not marked
-            if (isMarked1 == false) {
+            if (isMarked == false) {
 
                 //mark the list item
                 $(this).parent().css({"text-decoration":"line-through", "color": "grey"});
 
                 //change the variable to true
-                isMarked1 = true;
+                isMarked = true;
 
             //else if the list item is marked
             }else{
@@ -110,7 +90,7 @@ $(function(){
                 //unmark the list item
                 $(this).parent().css({"text-decoration":"none", "color": ""});
                 //change the variable to false
-                isMarked1 = false;
+                isMarked = false;
             }
 
             //Save the tasks
@@ -118,5 +98,11 @@ $(function(){
         });
     }
 
+    function countTasks(){
+        var count = $("#mylist li").length;
+        $("#count").text(count);
+    }
+
 getTasks();
+countTasks();
 });
