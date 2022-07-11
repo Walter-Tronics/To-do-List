@@ -33,7 +33,6 @@ $(function(){
 
         //Get the stored value of the task array
         console.log("Created a new task");
-        //console.log(JSON.parse(localStorage.getItem("TaskCont")));
 
         //Call the function to store the new task
         saveTasks();
@@ -54,7 +53,7 @@ $(function(){
         if (storedTasks !== null) {
             //Append the stored value to the list
             $('#mylist').html(storedTasks);
-            
+
             //show the clear button
             $("#clear").show();
 
