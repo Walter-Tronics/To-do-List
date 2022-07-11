@@ -7,6 +7,9 @@ $(function(){
         var val = $("input").val();
         if (val !=='') {
 
+            //Showing the clear button
+            $("#clear").show();
+
             //Create a new list item
             var elem = $("<li></li>").text(val);
 
@@ -27,7 +30,6 @@ $(function(){
             DeleteMark();
 
         }
-
 
         //Get the stored value of the task array
         console.log("Created a new task");
@@ -52,9 +54,13 @@ $(function(){
         if (storedTasks !== null) {
             //Append the stored value to the list
             $('#mylist').html(storedTasks);
+            
+            //show the clear button
+            $("#clear").show();
 
             //calling the delete and mark functions
             DeleteMark();
+            
         }
     }
 
@@ -98,11 +104,20 @@ $(function(){
         });
     }
 
-    function countTasks(){
-        var count = $("#mylist li").length;
-        $("#count").text(count);
+    //Clear the list and local storage
+    $("#clear").on("click",function(){
+        //Clear the list
+        $("#mylist").empty();
+        $("#clear").hide();
+        //clear the local storage
+        localStorage.clear("TaskCont");
+        console.log("Cleared the list");
+    });
+
+    //When local storage is empty, hide the clear button
+    if(localStorage.getItem("TaskCont") === null){
+        $("#clear").hide();
     }
 
 getTasks();
-countTasks();
 });
