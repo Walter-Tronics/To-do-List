@@ -3,8 +3,7 @@ $(function(){
     //Creating a new array for storing the tasks
     let taskArray = [];
     let taskId = 0;
-    var i = -1;
-
+    
     //Store the task array in local storage
     localStorage.setItem("Tasks", taskArray);
 
@@ -27,6 +26,7 @@ $(function(){
             //adding the task object to the task array
             taskArray.push(task);
 
+
             //Create a new list item
             var elem = $("<li></li>").text(val);
 
@@ -39,90 +39,84 @@ $(function(){
             //Append the new list item to the list
             $("#mylist").append(elem);
 
-            //getTasks();
+
 
             //Clear the input field
             $("input").val("");
 
-            //Add a delete function to the new list item
-                $(".rem").on("click",function(){
-                    //Remove the list item
-                    $(this).parent().remove();
-                    saveTasks();
-                });
-            
-            //create a variable to store the click function
-            var isMarked=false;
+            //Calling the delete and mark functions
+            DeleteMark();
 
-            //Add a click function to the new list item
-            $(".mark").on("click",function(){
-
-                //if the list item is not marked
-                if (isMarked==false) {
-
-                    //mark the list item
-                    $(this).parent().css({"text-decoration":"line-through", "color": "grey"});
-
-                    //change the variable to true
-                    isMarked=true;
-
-                    //else if the list item is marked
-                }else{
-
-                    //unmark the list item
-                    $(this).parent().css({"text-decoration":"none", "color": ""});
-                    //change the variable to false
-                    isMarked=false;
-                }
-
-                saveTasks();
-            });
-
-            saveTasks();
         }
+
 
         //Get the stored value of the task array
         console.log(taskArray);
-        console.log(JSON.parse(localStorage.getItem("TaskCont")));
+        //console.log(JSON.parse(localStorage.getItem("TaskCont")));
+
+        saveTasks();
     });
 
-    //Creating a funtion for retrieving the tasks from local storage
+
+    
 
 
     function saveTasks(){
         localStorage.setItem("TaskCont", JSON.stringify($('#mylist').html()));
     }
 
+    //Creating a funtion for retrieving the tasks from local storage
     function getTasks(){
         var storedTasks = JSON.parse(localStorage.getItem("TaskCont"));
-        $('#mylist').html(storedTasks);
+        //If the stored value is not null
+        if (storedTasks !== null) {
+            //Append the stored value to the list
+            $('#mylist').html(storedTasks);
+
+            //calling the delete and mark functions
+            DeleteMark();
+        }
     }
 
 
+    //The delete and mark click function
+    function DeleteMark(){
 
+        //Add a delete function to the new list item
+        $(".rem").on("click",function(){
+            //Remove the list item
+            $(this).parent().remove();
+            saveTasks();
+        });
 
-    /*
-    function getTasks(){
-        //Get the stored value of the task array
-        //taskArray = localStorage.getItem("Tasks");
+        //create a variable to store the click function
+        var isMarked1 = false;
 
-        //Loop through the task array
-        //for (var i = 0; i < taskArray.length; i++) {
-            i++;
-            //Create a new list item
-            var elem = $("<li></li>").text(taskArray[i].task);
+        //Add a click function to the new list item
+        $(".mark").on("click",function(){
 
-            //Append a delete button to the list item
-            $(elem).append("<button class=' rem btn btn-sm btn-danger' style='float: right;'>&times;</button>");
+            //if the list item is not marked
+            if (isMarked1 == false) {
 
-            //Append a click button to the list item
-            $(elem).append("<button class='mark btn btn-sm btn-success' style='float: right;'>&check;</button>");
+                //mark the list item
+                $(this).parent().css({"text-decoration":"line-through", "color": "grey"});
 
-            //Append the new list item to the list
-            $("#mylist").append(elem);
-        //}
+                //change the variable to true
+                isMarked1 = true;
+
+            //else if the list item is marked
+            }else{
+
+                //unmark the list item
+                $(this).parent().css({"text-decoration":"none", "color": ""});
+                //change the variable to false
+                isMarked1 = false;
+            }
+
+            //Save the tasks
+            saveTasks();
+        });
     }
-    */
 
-    getTasks();
+getTasks();
 });
